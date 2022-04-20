@@ -1,0 +1,37 @@
+.nav{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #ffff;
+    width: 225px;
+    border-right: 1px solid #e6e6e6;
+    margin: 0;
+    padding: 0 30px;
+  }
+.nav li{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 30px 0 30px ;
+    font-weight: bold;
+    font-size: 20px;
+}
+.nav ul{
+    list-style: none;
+}
+.btn{
+    width: 25px;
+    height: 25px;
+    border: none;
+    border-radius: 50%;
+    outline: none;
+    background-color: #d1d5db;
+    color: #6d28d9;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+}
+.btn:hover {
+    background: #6d28d9;
+    color: #ffff;
+}
