@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import getOneContact from '../../services/getOneContact';
+import UpdateContact from '../../services/UpdateContact';
 
-export default function EditContact({ EditContactHandler }) {
+export default function EditContact() {
   const params = useParams();
   const navigate = useNavigate();
   const [contact, setContact] = useState({
@@ -16,28 +17,26 @@ export default function EditContact({ EditContactHandler }) {
     setContact({ ...contact, [e.target.name]: e.target.value });
   };
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
     if (!contact.name || !contact.email || !contact.phoneNumber) {
       alert('All fields must be filled!');
       return;
     }
-    EditContactHandler(contact, params.id);
-    setContact({ name: '', email: '', phoneNumber: '', avatar: '' });
-    navigate('/');
+    try {
+      await UpdateContact(params.id, contact);
+      navigate('/');
+    } catch (error) {}
   };
 
   useEffect(() => {
-    getOneContact(params.id)
-      .then((res) =>
-        setContact({
-          name: res.name,
-          email: res.email,
-          phoneNumber: res.phoneNumber,
-          avatar: res.avatar,
-        })
-      )
-      .catch((err) => console.log(err));
+    const localfetch = async () => {
+      try {
+        const { data } = await getOneContact(params.id);
+        setContact(data);
+      } catch (error) {}
+    };
+    localfetch();
   }, []);
 
   return (

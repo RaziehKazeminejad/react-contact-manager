@@ -3,18 +3,12 @@ import './contactList.css';
 import AddContact from '../AddContact/AddContact';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import deleteContact from '../../services/deleteContactService';
+import getContact from '../../services/getContactService';
 
-export default function ContactList({
-  contacts,
-  onDelete,
-  id,
-}) {
+export default function ContactList({ id }) {
+  const [contacts, setContacts] = useState(null);
   const [photo, setPhoto] = useState([]);
-
-  useEffect(() => {
-    _getPhoto();
-  }, []);
-
   const _getPhoto = async () => {
     try {
       const result = await axios.get('http://localhost:3001/contacts');
@@ -24,6 +18,24 @@ export default function ContactList({
     }
   };
 
+  useEffect(() => {
+    _getPhoto();
+    const getAllContacts = async () => {
+      const { data } = await getContact();
+      setContacts(data);
+    };
+    try {
+      getAllContacts();
+    } catch (error) {}
+  }, []);
+  
+  const deleteContactHandler = async (id) => {
+    try {
+      await deleteContact(id);
+      const filteredContact = contacts.filter((c) => c.id !== id);
+      setContacts(filteredContact);
+    } catch (error) {}
+  };
   return (
     <div className="main">
       <h2>Contacts</h2>
@@ -50,7 +62,7 @@ export default function ContactList({
             <th>Phone</th>
             <th></th>
           </tr>
-          {contacts.map((contact) => {
+          {contacts ? contacts.map((contact) => {
             const { name, avatar, email, phoneNumber, id } = contact;
             return (
               <tr key={id}>
@@ -65,11 +77,11 @@ export default function ContactList({
                   <Link to={`/edit/${id}`}>
                     <button>edit</button>
                   </Link>
-                  <button onClick={() => onDelete(id)}>delete</button>
+                  <button onDelete={deleteContactHandler}>delete</button>
                 </td>
               </tr>
             );
-          })}
+          }):<p>Loading...</p>}
         </table>
       </div>
     </div>

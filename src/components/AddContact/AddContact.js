@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import addOneContact from '../../services/addContactService';
 import './addContact.css';
 
-export default function AddContact({ addContactHandler }) {
+export default function AddContact() {
   const navigate = useNavigate();
   const [contact, setContact] = useState({
     name: '',
@@ -15,15 +16,17 @@ export default function AddContact({ addContactHandler }) {
     setContact({ ...contact, [e.target.name]: e.target.value });
   };
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
     if (!contact.name || !contact.email || !contact.phoneNumber) {
       alert('All fields must be filled!');
       return;
     }
-    addContactHandler(contact);
-    setContact({ name: '', email: '', phoneNumber: '', avatar: '' });
-    navigate('/');
+    try {
+      await addOneContact(contact);
+      setContact({ name: '', email: '', phoneNumber: '', avatar: '' });
+      navigate('/');
+    } catch (error) {}
   };
 
   return (
