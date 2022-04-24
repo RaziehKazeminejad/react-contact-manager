@@ -8,7 +8,7 @@ export default function SideBar() {
           <li>
             <p>Lists</p>
             <button className="btn">
-              <p style={{ paddingBottom: '1px' }}>+</p>
+              <p style={{ marginTop: '-4px' }}>+</p>
             </button>
           </li>
         </ul>

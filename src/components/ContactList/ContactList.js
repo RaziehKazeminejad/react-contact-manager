@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import deleteContact from '../../services/deleteContactService';
 import getContact from '../../services/getContactService';
 
-export default function ContactList({ id1 }) {
+export default function ContactList() {
   const [contacts, setContacts] = useState(null);
   const [photo, setPhoto] = useState([]);
 
@@ -43,9 +43,7 @@ export default function ContactList({ id1 }) {
       <div className="search">
         <input placeholder="search" type="text" name="seatch" />
         <div>
-          <Link to={`/edit/${id1}`}>
-            <button className="uploadBtn">Upload</button>
-          </Link>
+          <button className="uploadBtn">Upload</button>
 
           <Link to="/add">
             <button>Add New</button>
