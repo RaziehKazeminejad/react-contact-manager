@@ -5,15 +5,18 @@ import { Link } from 'react-router-dom';
 import deleteContact from '../../services/deleteContactService';
 import getContact from '../../services/getContactService';
 
-export default function ContactList() {
+export default function ContactList(props) {
   const [contacts, setContacts] = useState(null);
+  const [allContacts, setAllContacts] = useState(null);
   const [photo, setPhoto] = useState([]);
+  const [searchItem, setSearchItem] = useState('');
 
   useEffect(() => {
     _getPhoto();
     const getAllContacts = async () => {
       const { data } = await getContact();
       setContacts(data);
+      setAllContacts(data);
     };
     try {
       getAllContacts();
@@ -28,6 +31,7 @@ export default function ContactList() {
       console.log(err);
     }
   };
+
   const deleteContactHandler = async (id) => {
     try {
       await deleteContact(id);
@@ -37,14 +41,36 @@ export default function ContactList() {
       console.log('error');
     }
   };
+
+  const searchHandler = (e) => {
+    const search = e.target.value;
+    setSearchItem(search);
+    if (search != '') {
+      const filteredContacts = allContacts.filter((c) => {
+        return Object.values(c)
+          .join(' ')
+          .toLowerCase()
+          .includes(search.toLowerCase());
+      });
+      setContacts(filteredContacts);
+    } else {
+      setContacts(allContacts);
+    }
+  };
+
   return (
     <div className="main">
       <h2>Contacts</h2>
       <div className="search">
-        <input placeholder="search" type="text" name="seatch" />
+        <input
+          type="text"
+          value={searchItem}
+          onChange={searchHandler}
+          className="search"
+          placeholder="Search..."
+        />
         <div>
           <button className="uploadBtn">Upload</button>
-
           <Link to="/add">
             <button>Add New</button>
           </Link>
