@@ -43,4 +43,26 @@
     border-radius: 5px;
     padding: 10px 24px;
     color: #ffff;
+    cursor: pointer;
+}
+.search button:hover {
+    background-color: #aa8ed8;
+}
+.main img {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin: 0px 12px -10px 0;
+}
+.customers input[type=checkbox] {
+    margin: 0 10px;
+    cursor: pointer;
+    accent-color: #6d28d9;
+}
+.uploadBtn{
+    margin-right: 15px;
+    background-color: #fff !important;
+    color: rgb(113, 113, 113) !important;
+    font-weight: bold;
+    border: 1px solid #e3e3e3 !important;
 }
