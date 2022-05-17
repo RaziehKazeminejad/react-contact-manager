@@ -10,7 +10,6 @@ export default function EditContact() {
     name: '',
     email: '',
     phoneNumber: '',
-    avatar: '',
   });
 
   const changeHandler = (e) => {

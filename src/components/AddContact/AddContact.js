@@ -9,7 +9,6 @@ export default function AddContact() {
     name: '',
     email: '',
     phoneNumber: '',
-    avatar: '',
   });
 
   const changeHandler = (e) => {
@@ -24,7 +23,7 @@ export default function AddContact() {
     }
     try {
       await addOneContact(contact);
-      setContact({ name: '', email: '', phoneNumber: '', avatar: '' });
+      setContact({ name: '', email: '', phoneNumber: ''});
       navigate('/');
     } catch (error) {}
   };

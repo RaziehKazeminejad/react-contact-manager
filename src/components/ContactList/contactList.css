@@ -6,6 +6,7 @@
 .customers td, .customers th {
     padding: 20px;
     border-bottom: 1px solid #eae9e9a2;
+    justify-content: end;
 }
 .customers tr:hover {
     background-color: #ddd;
@@ -35,7 +36,7 @@
     border: none;
     border-radius: 5px;
     padding: 10px;
-    width: 200px;
+    width: 28%;
 }
 .tabelHeader button{
     background-color: #6d28d9;
@@ -62,19 +63,32 @@
 .uploadBtn{
     margin-right: 15px;
     background-color: #fff !important;
-    color: rgb(113, 113, 113) !important;
+    color: #717171 !important;
     font-weight: bold;
     border: 1px solid #e3e3e3 !important;
 }
 .customers button{
+    cursor: pointer;
     background-color: #fff;
-    padding: 8px;
+    padding: 12px;
     border: 1px solid #ddd;
     border-radius: 5px;
     justify-content: space-around;
+    margin-left: 12px;
 }
 .customers .button{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+}
+.customers .deletebtn{
+    background-color: #ee5d5d4f;
+}
+.avatar{
+    background-color: #6c28d946;
+    border: 1px solid #6d28d9;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    margin-right: 20px;
 }

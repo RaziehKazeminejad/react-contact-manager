@@ -7,7 +7,6 @@ export default function HomePage() {
     <div>
       <Header />
       <div className="mainPage">
-        <SideBar />
         <ContactList />
       </div>
     </div>

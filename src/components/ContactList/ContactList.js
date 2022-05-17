@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import deleteContact from '../../services/deleteContactService';
 import getContact from '../../services/getContactService';
-import { DeleteFilled, EditOutlined } from '@ant-design/icons';
+import { DeleteFilled, EditOutlined, UserOutlined } from '@ant-design/icons';
 import { ExportCSV } from '../ExportCSV/ExportCSV ';
 
 export default function ContactList(props) {
@@ -81,7 +81,7 @@ export default function ContactList(props) {
       <div className="table">
         <table className="customers">
           <tr>
-            <th>Name</th>
+            <th style={{ paddingLeft: '77px' }}>Name</th>
             <th>Email</th>
             <th>Phone</th>
             <th></th>
@@ -89,36 +89,34 @@ export default function ContactList(props) {
 
           {contacts ? (
             contacts.map((contact) => {
-              const { name, avatar, email, phoneNumber, id } = contact;
+              const { name, email, phoneNumber, id } = contact;
               return (
-                <>
-                  <tr key={id}>
-                    <td>
-                      <img src={avatar} alt="avatar" />
-                      {name}
-                    </td>
-                    <td>{email}</td>
-                    <td>{phoneNumber}</td>
-                    <td className="button">
-                      <div>
-                        <button>
-                          <Link to={`/edit/${id}`}>
-                            <EditOutlined
-                              style={{ fontSize: '15px', color: '#444' }}
-                            />
-                          </Link>
-                        </button>
-                      </div>
-                      <div>
-                        <button onClick={() => deleteContactHandler(id)}>
-                          <DeleteFilled
-                            style={{ fontSize: '15px', color: '#e01919' }}
+                <tr key={id}>
+                  <td>
+                    <UserOutlined className="avatar" />
+                    {name}
+                  </td>
+                  <td>{email}</td>
+                  <td>{phoneNumber}</td>
+                  <td className="button">
+                    <div>
+                      <button>
+                        <Link to={`/edit/${id}`}>
+                          <EditOutlined
+                            style={{ fontSize: '20px', color: '#444' }}
                           />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                </>
+                        </Link>
+                      </button>
+                    </div>
+                    <div>
+                      <button className='deletebtn' onClick={() => deleteContactHandler(id)}>
+                        <DeleteFilled
+                          style={{ fontSize: '20px', color: '#e01919' }}
+                        />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
               );
             })
           ) : (
