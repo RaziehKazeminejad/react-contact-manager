@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import deleteContact from '../../services/deleteContactService';
 import getContact from '../../services/getContactService';
+import { DeleteFilled, EditOutlined } from '@ant-design/icons';
+import { ExportCSV } from '../ExportCSV/ExportCSV ';
 
 export default function ContactList(props) {
   const [contacts, setContacts] = useState(null);
@@ -45,7 +47,7 @@ export default function ContactList(props) {
   const searchHandler = (e) => {
     const search = e.target.value;
     setSearchItem(search);
-    if (search != '') {
+    if (search !== '') {
       const filteredContacts = allContacts.filter((c) => {
         return Object.values(c)
           .join(' ')
@@ -61,7 +63,7 @@ export default function ContactList(props) {
   return (
     <div className="main">
       <h2>Contacts</h2>
-      <div className="search">
+      <div className="tabelHeader">
         <input
           type="text"
           value={searchItem}
@@ -70,7 +72,7 @@ export default function ContactList(props) {
           placeholder="Search..."
         />
         <div>
-          <button className="uploadBtn">Upload</button>
+          <ExportCSV csvData={contacts} fileName="contacts" />
           <Link to="/add">
             <button>Add New</button>
           </Link>
@@ -79,35 +81,44 @@ export default function ContactList(props) {
       <div className="table">
         <table className="customers">
           <tr>
-            <th>
-              <input type="checkbox" />
-              Name
-            </th>
+            <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
             <th></th>
           </tr>
+
           {contacts ? (
             contacts.map((contact) => {
               const { name, avatar, email, phoneNumber, id } = contact;
               return (
-                <tr key={id}>
-                  <td>
-                    <input type="checkbox" />
-                    <img src={avatar} alt="Avatar" />
-                    {name}
-                  </td>
-                  <td>{email}</td>
-                  <td>{phoneNumber}</td>
-                  <td>
-                    <Link to={`/edit/${id}`}>
-                      <button>edit</button>
-                    </Link>
-                    <button onClick={() => deleteContactHandler(id)}>
-                      delete
-                    </button>
-                  </td>
-                </tr>
+                <>
+                  <tr key={id}>
+                    <td>
+                      <img src={avatar} alt="avatar" />
+                      {name}
+                    </td>
+                    <td>{email}</td>
+                    <td>{phoneNumber}</td>
+                    <td className="button">
+                      <div>
+                        <button>
+                          <Link to={`/edit/${id}`}>
+                            <EditOutlined
+                              style={{ fontSize: '15px', color: '#444' }}
+                            />
+                          </Link>
+                        </button>
+                      </div>
+                      <div>
+                        <button onClick={() => deleteContactHandler(id)}>
+                          <DeleteFilled
+                            style={{ fontSize: '15px', color: '#e01919' }}
+                          />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </>
               );
             })
           ) : (

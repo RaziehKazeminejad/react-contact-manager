@@ -1,3 +1,7 @@
 .mainPage{
     display: flex;
 }
+
+a{
+    text-decoration: none;
+}
